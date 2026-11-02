@@ -1,46 +1,24 @@
-
-import re
-from collections import defaultdict
-
-# Step 1: Create sample documents
+# Step 1: Create documents
 documents = {
-    "D1": "Python is a programming language",
-    "D2": "Python is used in data science",
-    "D3": "Data science uses machine learning",
-    "D4": "Programming is important for computer science"
+    "D1": "Machine Learning is useful",
+    "D2": "Machine Learning uses data",
+    "D3": "Data Science is useful"
 }
 
 # Step 2: Create inverted index
-inverted_index = defaultdict(list)
+inverted_index = {}
 
 for doc_id, text in documents.items():
-
-    # Convert text into lowercase
-    text = text.lower()
-
-    # Remove special characters
-    words = re.findall(r'\b\w+\b', text)
-
-    # Add words to inverted index
-    for word in set(words):
-        inverted_index[word].append(doc_id)
+    for word in text.lower().split():
+        inverted_index.setdefault(word, []).append(doc_id)
 
 # Step 3: Display inverted index
-print("INVERTED INDEX")
+print("Inverted Index:")
+print(inverted_index)
 
-for word, doc_ids in sorted(inverted_index.items()):
-    print(word, ":", doc_ids)
-
-# Step 4: Search for a document
+# Step 4: Search a word
 query = input("\nEnter search word: ").lower()
 
-# Step 5: Retrieve matching documents
-if query in inverted_index:
-
-    print("\nDocuments containing", query, ":")
-
-    for doc_id in inverted_index[query]:
-        print(doc_id, ":", documents[doc_id])
-
-else:
-    print("\nNo matching documents found.")
+# Step 5: Display matching documents
+print("Matching Documents:",
+      inverted_index.get(query, "No documents found"))
