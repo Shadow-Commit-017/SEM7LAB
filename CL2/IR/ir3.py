@@ -48,3 +48,14 @@ plt.xlabel("Sepal Length (Standardized)")
 plt.ylabel("Sepal Width (Standardized)")
 
 plt.show()
+
+from scipy.cluster.hierarchy import dendrogram, linkage
+
+Z = linkage(X_scaled, method='ward')
+
+plt.figure(figsize=(10, 5))
+dendrogram(Z)
+plt.title("Dendrogram")
+plt.xlabel("Data Points")
+plt.ylabel("Distance")
+plt.show()
